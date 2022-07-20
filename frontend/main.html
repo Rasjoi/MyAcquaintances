@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информационная база «Мои знакомые»</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script defer src="js/bootstrap.bundle.min.js"></script>
+    <script defer src="js/main.js"></script>
+</head>
+
+<body>
+<div class="page">
+
+    <div class="container mt-4">
+
+        <div class="row">
+
+            <div class="side-menu col-4">
+
+                <div class="control-buttons mb-3">
+                    <button type="button" class="button-add btn btn-primary me-1" data-bs-toggle="modal"
+                            data-bs-target="#add-modal">
+                        Добавить знакомого
+                    </button>
+                </div>
+
+                <div class="filters mb-3">
+
+                    <div class="form-check filter">
+                        <input class="form-check-input show-higher-than-12-months" type="radio" name="filterRadio" value=""
+                               id="show-higher-than-12-months">
+                        <label class="form-check-label" for="show-higher-than-12-months">
+                            Показать вкладчиков со сроком договора больше 12 месяцев
+                        </label>
+                    </div>
+
+                    <div class="form-check filter mb-3">
+                        <input class="form-check-input show-all" type="radio" name="filterRadio" value=""
+                               id="show-all">
+                        <label class="form-check-label" for="show-all">
+                            Показать всех инвесторов
+                        </label>
+                    </div>
+
+                    <div class="show-acquaintances-with-deposit-higher-than-filter mb-3">
+                        <label class="form-check-label mb-2" id="show-acquaintances-with-deposit-higher-than-label" for="show-acquaintances-with-deposit-higher-than">
+                            Показать инвесторов, вклад которых превышает заданную сумму:
+                        </label>
+                        <div class="input-group">
+                            <input class="form-control show-acquaintances-with-deposit-higher-than" type="text" name="" id="show-acquaintances-with-deposit-higher-than"
+                                   placeholder="Сумма вклада">
+                            <button type="submit" class="btn btn-info" id="show-acquaintances-with-deposit-higher-than-button" type="button">
+                                Показать
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="delete-by-number mb-3">
+                    <label class="form-check-label mb-2" id="edit-element-label" for="edit-element">
+                        Редактирование по номеру договора:
+                    </label>
+                    <div class="input-group">
+                        <input class="form-control delete-element" type="text" name="" id="edit-element"
+                               placeholder="Номер договора">
+                        <button type="submit" class="btn btn-secondary" id="edit-element-button" type="button">
+                            Редактировать
+                        </button>
+                    </div>
+                </div>
+
+                <div class="delete-by-last-name mb-3">
+                    <label class="form-check-label mb-2" id="delete-element-label" for="delete-element">
+                        Удаление всех инвесторов по фамилии:
+                    </label>
+                    <div class="input-group">
+                        <input class="form-control delete-element" type="text" name="" id="delete-element"
+                               placeholder="Фамилия">
+                        <button type="submit" class="btn btn-danger" id="delete-element-button" type="button">
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="content col-8">
+
+                <div class="content-header">
+
+                    <div class="h1 text-center">Инвесторы трастового фонда МММ:</div>
+
+                </div>
+
+                <div class="searching row form-group mt-3 text-center">
+
+                    <div class="col-sm-12">
+                        <input class="form-control search-last-name" type="text" name="" id="search-last-name"
+                               placeholder="Живой поиск по фамилии инвестора">
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table class="content-table table table-bordered mt-3">
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal modal-add" id="add-modal" aria-labelledby="add-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="content-modal">
+
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="add-modal-label">Добавить инвестора:</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Имя:
+                            </div>
+                            <input type="text" class="form-control" id="modal-input-first-name">
+                            <div class="form-text text-muted">
+                                (Первая буква заглавная, длина < 20 символов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Отчество:
+                            </div>
+                            <input type="text" class="form-control" id="modal-input-middle-name">
+                            <div class="form-text text-muted">
+                                (Первая буква заглавная, длина < 20 символов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Фамилия:
+                            </div>
+                            <input type="text" class="form-control" id="modal-input-last-name">
+                            <div class="form-text text-muted">
+                                (Первая буква заглавная, длина < 20 символов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Номер договора:
+                            </div>
+                            <input type="number" class="form-control" id="modal-input-agreement-number">
+                            <div class="form-text text-muted">
+                                (Число >= 0 и < 30000)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Домашний адрес:
+                            </div>
+                            <input type="text" class="form-control" id="modal-input-home-address">
+                            <div class="form-text text-muted">
+                                (Первая буква заглавная, длина < 120 символов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Сумма депозита:
+                            </div>
+                            <input type="number" class="form-control" id="modal-input-deposit-sum">
+                            <div class="form-text text-muted">
+                                (Число >= 0 и < 100 миллионов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Автопролонгация:
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="true" name="auto-prolongation" id="modal-input-auto-prolongation-true">
+                                <label class="form-check-label" for="modal-input-auto-prolongation-true">
+                                    Да
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="false" name="auto-prolongation" id="modal-input-auto-prolongation-false">
+                                <label class="form-check-label" for="modal-input-auto-prolongation-false">
+                                    Нет
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Срок заключения договора (в днях):
+                            </div>
+                            <input type="number" class="form-control" id="modal-input-contract-term">
+                            <div class="form-text text-muted">
+                                (Число > 0 и < 365 * 4 (4 года))
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" id="modal-add-send">
+                                Добавить
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-edit" id="edit-modal" aria-labelledby="edit-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="content-modal">
+
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="edit-modal-label">Редактировать инвестора:</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Имя:
+                            </div>
+                            <input type="text" class="form-control" id="modal-input-first-name-edit">
+                            <div class="form-text text-muted">
+                                (Первая буква заглавная, длина < 20 символов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Отчество:
+                            </div>
+                            <input type="text" class="form-control" id="modal-input-middle-name-edit">
+                            <div class="form-text text-muted">
+                                (Первая буква заглавная, длина < 20 символов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Фамилия:
+                            </div>
+                            <input type="text" class="form-control" id="modal-input-last-name-edit">
+                            <div class="form-text text-muted">
+                                (Первая буква заглавная, длина < 20 символов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Номер договора:
+                            </div>
+                            <input type="number" class="form-control" id="modal-input-agreement-number-edit">
+                            <div class="form-text text-muted">
+                                (Число >= 0 и < 30000)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Домашний адрес:
+                            </div>
+                            <input type="text" class="form-control" id="modal-input-home-address-edit">
+                            <div class="form-text text-muted">
+                                (Первая буква заглавная, длина < 120 символов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Сумма депозита:
+                            </div>
+                            <input type="number" class="form-control" id="modal-input-deposit-sum-edit">
+                            <div class="form-text text-muted">
+                                (Число >= 0 и < 100 миллионов)
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Автопролонгация:
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="true" name="auto-prolongation-edit" id="modal-input-auto-prolongation-edit-true">
+                                <label class="form-check-label" for="modal-input-auto-prolongation-edit-true">
+                                    Да
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="false" name="auto-prolongation-edit" id="modal-input-auto-prolongation-edit-false">
+                                <label class="form-check-label" for="modal-input-auto-prolongation-edit-false">
+                                    Нет
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">
+                                Срок заключения договора (в днях):
+                            </div>
+                            <input type="number" class="form-control" id="modal-input-contract-term-edit">
+                            <div class="form-text text-muted">
+                                (Число > 0 и < 365 * 4 (4 года))
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" id="modal-edit-send">
+                                Изменить
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>
